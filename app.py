@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, redirect, session, url_for
-from flask_github import GitHub
 from requests_oauthlib import OAuth2Session
-from flask.json import jsonify
+from datamanagement import *
 import os
+
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
+
 # Information from github app
 client_id = '06078c9479f182a8f8a4'
 client_secret = '4342fac9ab22b88884381cc2b178e16196f4ec3d'
@@ -48,11 +49,13 @@ def profile():
     """Fetching a protected resource using an OAuth 2 token.
     """
     github = OAuth2Session(client_id, token=session['oauth_token'])
-    data = jsonify(github.get('https://api.github.com/user').json())
-    data2 = github.get('https://api.github.com/user').json()
-    data3 = github.get(data2['repos_url']).json()
-    #data3 = github.get(data2[])
-    return render_template('profile.html', data2 = data2, data3 = data3)
+    users = github.get('https://api.github.com/user').json()
+    repos = github.get(users['repos_url']).json()
+
+    data_manage = datamanagement()
+
+    list_repos = data_manage.get3most(data_manage.setFormat(repos))
+    return render_template('profile.html', users = users, list_repos = list_repos)
 
 
 if __name__ == "__main__":

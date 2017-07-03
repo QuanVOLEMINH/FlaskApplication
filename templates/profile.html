@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<div class="container" style="margin:100px;">
+<div class="container" style="margin:100px 80px;">
     <h2>Most frequently used repositories of {{users['name']}}</h2>
-    <div class="list-group">
+    <div class="list-group" style="margin: 50px 0px;">
         {% for x in list_repos %}
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">

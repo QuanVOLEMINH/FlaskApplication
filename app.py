@@ -3,7 +3,7 @@ from requests_oauthlib import OAuth2Session
 from datamanagement import *
 import os
 
-
+#Ignore https for localhost
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
@@ -52,14 +52,12 @@ def profile():
     users = github.get('https://api.github.com/user').json()
     repos = github.get(users['repos_url']).json()
 
-    data_manage = datamanagement()
+    data_manage = DataManagement()
 
-    list_repos = data_manage.get3most(data_manage.setFormat(repos))
-    return render_template('profile.html', users = users, list_repos = list_repos)
-
+    list_repos = data_manage.get3most(data_manage.setformat(repos))
+    return render_template('profile.html', users=users, list_repos=list_repos)
 
 if __name__ == "__main__":
     os.environ['DEBUG'] = "1"
-
     app.secret_key = os.urandom(24)
     app.run(debug=True)

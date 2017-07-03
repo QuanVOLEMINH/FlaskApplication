@@ -49,7 +49,10 @@ def profile():
     """
     github = OAuth2Session(client_id, token=session['oauth_token'])
     data = jsonify(github.get('https://api.github.com/user').json())
-    return jsonify(github.get('https://api.github.com/user').json())
+    data2 = github.get('https://api.github.com/user').json()
+    data3 = github.get(data2['repos_url']).json()
+    #data3 = github.get(data2[])
+    return render_template('profile.html', data2 = data2, data3 = data3)
 
 
 if __name__ == "__main__":

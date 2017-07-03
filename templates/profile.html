@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container" style="margin:100px;">
+    <h2>List repositories of {{data2['name']}}</h2>
+    <ul class="list-group">
+        {% for x in data3 %}
+        <li class="list-group-item">
+            {{x.name}}
+            Last activity on: {{x
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
